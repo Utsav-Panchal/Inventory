@@ -1,12 +1,12 @@
+from flask_jwt import JWT
 from flask_restful import Api
 from flask import Flask
 
 # Import Resources over here
+from authorization import authenticate, identity
 from resources.InventoryResources import InventoryResource, ItemList
 from resources.usersR import UserRegisterResource
 from resources.CategoriesResorces import StoreList, Store
-
-
 
 app = Flask(__name__)
 
@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory_data.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/assignment_2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
+
 app.secret_key = 'utsav'
 api = Api(app)
 
@@ -30,6 +31,8 @@ api.add_resource(StoreList, '/stores')
 def create_tables():
     db.create_all()
 
+
+jwt = JWT(app, authenticate, identity)  # auth
 
 if __name__ == "__main__":
     from db import db

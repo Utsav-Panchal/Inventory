@@ -1,5 +1,6 @@
-import json
-from datetime import date, datetime
+from base64 import b64encode
+from datetime import datetime, date
+
 from dateutil.relativedelta import relativedelta
 
 
@@ -12,8 +13,12 @@ def covert_time(manufacturing_time, expiry_time):
 
 
 def is_expired_func(expiry_time):
-    print("Came to check expired ???????????????????????")
     time_diff_delta = expiry_time - date.today()
     if time_diff_delta.days <= 0:
         return True
     return False
+
+def conversion_image_into_bs64(file_location):
+    with open(f"{file_location}", "rb") as img_file:
+        img_file = b64encode(img_file.read())
+    return img_file
