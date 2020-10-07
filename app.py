@@ -7,6 +7,7 @@ from authorization import authenticate, identity
 from resources.InventoryResources import InventoryResource, ItemList
 from resources.usersR import UserRegisterResource
 from resources.CategoriesResorces import StoreList, Store
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def create_tables():
 jwt = JWT(app, authenticate, identity)  # auth
 
 if __name__ == "__main__":
-    from db import db
+    from models.db import db
 
     db.init_app(app)
     app.run(port=5001, debug=True)

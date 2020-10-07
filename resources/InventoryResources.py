@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
+from datetime import datetime, date
 
 from businesslogic.InventoryBL import InventoryBL, InventoryListBL
 
@@ -14,7 +15,8 @@ class InventoryResource(Resource):
 
     parse.add_argument('quantity',
                        required=False,
-                       help="quantity can not be blank.")
+                       type=int,
+                       help="quantity can not be blank and in other format except integer.")
 
     parse.add_argument('manufacturing_time',
                        required=False,
@@ -23,6 +25,8 @@ class InventoryResource(Resource):
     parse.add_argument('expiry_time',
                        required=False,
                        help="expiry_time can not be blank.")
+
+    # date changes in proper formatted
 
     parse.add_argument('store_id',
                        type=int,

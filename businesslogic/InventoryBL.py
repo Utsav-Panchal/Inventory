@@ -23,12 +23,9 @@ class InventoryBL:
 
         if item:
             # Add item one more in inventory
-            item.quantity = int(item.quantity) + 1
-
+            # item.quantity = int(item.quantity) + 1
+            return {"message": f"{self.inventory_name} is already have created."}
         else:
-            # create Item in inventory
-
-            # Time change function call
             date_data = covert_time(data["manufacturing_time"], data["expiry_time"])
             manufacturing_time_into_date, expiry_time_into_date = date_data
             data["manufacturing_time"] = manufacturing_time_into_date
